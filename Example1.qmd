@@ -1,0 +1,42 @@
+---
+title: "Example 1"
+format: html
+editor: visual
+---
+
+## Example 1
+
+```{r}
+# Loading package
+library(readxl)
+library(tidyverse)
+library(skimr)
+
+```
+
+```{r}
+data <- read_xlsx("data/Coding.xlsx")
+
+skim(data)
+```
+
+```{r}
+year_publication <- data %>% 
+  select(Year, Type) %>%  
+  group_by(Year, Type) %>% 
+  count()  %>% 
+  arrange(Year) %>% 
+  ungroup()
+
+year_publication$Year <- as.character(year_publication$Year )
+
+
+ggplot(data=year_publication) +
+  geom_bar(aes(x=Year, y= n, fill = Type), stat="identity", position = "stack", width = 0.8) +
+  ylab("") + 
+    theme_minimal() +
+        theme(text=element_text(color = "#4D4D4D"),panel.grid.major.x = element_blank()) 
+
+ggsave("Example1_plot.png", width = 10, height = 6)
+
+```
