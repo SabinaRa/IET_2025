@@ -1,12 +1,15 @@
 ---
 title: "Example 1"
-format: html
+format: 
+  html:
+    embed-resources: true
+    theme: night
 editor: visual
 ---
 
 ## Example 1
 
-```{r}
+```{r warning=FALSE, include=FALSE}
 # Loading package
 library(readxl)
 library(tidyverse)
